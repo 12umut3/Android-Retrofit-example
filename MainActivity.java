@@ -35,11 +35,12 @@ public class MainActivity extends Activity {
         start_button = (Button)findViewById(R.id.startButton);
 
         listview = (ListView)findViewById(R.id.listview);
-
+        //Refreshing Authentication token using Retrofit without modifying all calls
         restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Constants.URL)
                 .build();
-
+        // Take data from the RestInterfaceController class to the restInterface 
+        //RestAdapter adapts a Java interface to a REST API.
         restInterface = restAdapter.create(RestInterfaceController.class);
         
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +51,7 @@ public class MainActivity extends Activity {
                 progressDialog.setMessage("Download..");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-
+                //getting JSON values from Restrofit Model
                 restInterface.getJsonValues(new Callback<RetrofitModel[]>() {
                     @Override
                     public void success(RetrofitModel[] model, Response response) {
